@@ -135,7 +135,15 @@ ul {
 /**                     ESTILO PARA: STATUS                         **
 /*********************************************************************/
 .status {
-  margin-bottom: 10px;
+  
+  border:20px inset #379fae;
+
+  border-width:20px;
+  border-style:inset;
+  border-color:#379fae;
+  width: 400px;
+  /* Center horizontally*/
+  text-align: center;
 }
 
 /*********************************************************************

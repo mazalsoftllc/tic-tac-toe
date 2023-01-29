@@ -48,7 +48,7 @@ export default function Board() {
    const [xIsNext, setXIsNext] = useState(true);    
   
   {/* Variable de estado: squares */}
-  const [squares, setSquares] = useState(Array(9).fill('Vacío'));
+  const [squares, setSquares] = useState(Array(9).fill(null));
   
   {/* Función para controlar el evento clic en un cuadrado.
     * Accede a las variables definidas dentro d la función principal Board().
@@ -58,11 +58,12 @@ export default function Board() {
     
     {/* Razonamiento lógico: Sí posición no es igual  a 'vacío' debería volver con return.
       * Esto evita que se modifique un botón con una figura ya establecida. */}
-    if (squares[i] != 'Vacío') {
+    if ( squares[i]  || calculateWinner(squares)) {
        return;
     }
     
-    {/* La casilla está vacía, puede interactuar con ella.*/}
+    {/* La casilla está vacía, puede interactuar con ella.
+      * Aún no hay un ganador.*/}
        
     const nextSquares = squares.slice(); {/* Es una copia del array squares a través del método .slice de JavaScript. */}
     
@@ -80,10 +81,22 @@ export default function Board() {
     setXIsNext(!xIsNext);
   }
   
+  {/* Mensajes del juego. Informar el turno actual o ganador del juego. */}
+  const winner = calculateWinner(squares); {/* Encontrar un ganador. */}
+  let status; {/* Estado del juego. */}
+  if (winner) {
+    status = "Ganador: " + winner;
+  } else {
+    status = "Siguiente turno: " + (xIsNext ? "X" : "O");
+  }
+  
   {/*Retornar contenedor de botones(elementos JSX: <button>) */}
   return(
     
     <>
+    
+      {/* Mensajes del juego. */}
+      <h1 className="status">{status}</h1>
     
       {/* Fila del tablero #1:  <div> (esto es una fila)*/}
       <div className="board-row">
@@ -131,3 +144,28 @@ export default function Board() {
   );
 }
 /*_______________Fin componente Board(Punto de entrada)_______________*/
+
+
+/**************************************************************
+/** Función | Razonamiento lógico para encontrar un ganador. **
+/**************************************************************/
+function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
+  for (let i = 0; i < lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
+}
+/*_______________Fin función encontrar un ganador._______________*/
