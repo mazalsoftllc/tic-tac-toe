@@ -1,17 +1,26 @@
+/*********************************************************************
+/** PUNTO DE ENTRADA. RENDERIZACIÓN EN LA RAÍZ DE LA ESTRUCTURA DOM **
+/*********************************************************************/
+
+/*********************************************************************
+/**                 INICIO DE LA IMPORTACIÓN                        **
+/*********************************************************************/
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 
+/*_______________________Fin de la importación_______________________*/
+
+
+/*********************************************************************
+/**               INICIO DE LA RENDERIZACIÓN PRINCIPAL              **
+/*********************************************************************/
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+/*______________________Fin de la renderización_______________________*/
