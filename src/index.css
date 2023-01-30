@@ -16,16 +16,23 @@ body {
 /**                     ESTILO PARA: H1                             **
 /*********************************************************************/
 h1 {
-  margin-top: 0;
-  font-size: 22px;
+ background: #121FCF;
+ background: linear-gradient(to right, #121FCF 0%, #CF1512 100%);
+ -webkit-background-clip: text;
+ -webkit-text-fill-color: transparent;
+ text-align: center;
+
 }
 
 /*********************************************************************
 /**                     ESTILO PARA: H2                             **
 /*********************************************************************/
 h2 {
-  margin-top: 0;
-  font-size: 20px;
+  background: #00FF00;
+  background: linear-gradient(to left, #00FF00 0%, #FF0000 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
 }
 
 /*********************************************************************
@@ -152,9 +159,58 @@ ul {
 .game {
   display: flex;
   flex-direction: row;
+  
+  background: #FFFF00;
+background: linear-gradient(to left, #FFFF00 0%, #05C1FF 50%, #FFFF00 100%);
+
+
+ 
 }
 
 .game-info {
   margin-left: 20px;
 }
+
+
+/*********************************************************************
+/**                     ESTILO PARA: JUMP-TO                         **
+/*********************************************************************/
+.jump-to {
+ min-width: 130px;
+  height: 40px;
+  color: #fff;
+  padding: 5px 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  outline: none;
+  border-radius: 5px;
+  z-index: 0;
+  background: #fff;
+  overflow: hidden;
+  border: 2px solid #ff0a78;
+  color: #ff0a78;
+}
+.jump-to:hover {
+  color: #fff;
+}
+.jump-to:hover:after {
+ width: 100%;
+}
+.jump-to:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  transition: all 0.3s ease;
+  right: 0;
+  top: 0;
+  width: 0;
+  height: 100%;
+  background: #ff0a78;
+}
+
+
+
 /*________________________Fin del estilo________________________*/

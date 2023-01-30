@@ -38,17 +38,12 @@ function Square({value, onSquareClick}) {
 /*_______________Fin componente Square(sub-componente)_______________*/
 
 
-/********************************************
-/** Componente Board. | Punto de entrada. **
-/********************************************/
-export default function Board() {
-   
-   {/* Variable de estado: xIsNext
-     * Se utiliza para controlar los turnos en el juego.*/}
-   const [xIsNext, setXIsNext] = useState(true);    
-  
-  {/* Variable de estado: squares */}
-  const [squares, setSquares] = useState(Array(9).fill(null));
+/***********************************************
+/** Componente Board. | Componente principal. **
+/***********************************************/
+function Board({ xIsNext, squares, onPlay }) {
+    
+ 
   
   {/* Función para controlar el evento clic en un cuadrado.
     * Accede a las variables definidas dentro d la función principal Board().
@@ -75,10 +70,9 @@ export default function Board() {
       nextSquares[i] = "O";
     }  
     
-    setSquares(nextSquares); {/* Actualiza el array con vigilancia de estado y asigna el nuevo array. */}
+    {/* Registrar movimiento. */}
+    onPlay(nextSquares);
     
-    {/* Cambiar de turno a través de una negación. */}
-    setXIsNext(!xIsNext);
   }
   
   {/* Mensajes del juego. Informar el turno actual o ganador del juego. */}
@@ -143,7 +137,92 @@ export default function Board() {
     </>
   );
 }
-/*_______________Fin componente Board(Punto de entrada)_______________*/
+/*_______________Fin componente Board(Componente principal)_______________*/
+
+/********************************************
+/** Componente Game. | Punto de entrada. **
+/********************************************/
+export default function Game() {
+  
+  {/* Variable de estado: xIsNext
+     * Se utiliza para controlar los turnos en el juego.*/}
+  const [xIsNext, setXIsNext] = useState(true);    
+  
+  {/* Variable de estado: history */}
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  
+  {/* Variable de estado: currentMove*/}
+  const [currentMove, setCurrentMove] = useState(0);
+  
+  {/* Registro de la Partida actual. */}
+  const currentSquares = history[currentMove];
+  
+  {/* Controlar la línea de tiempo del juego. */}
+  function handlePlay(nextSquares) {
+    
+    {/* Registrar el hito de movimiento en la línea de tiempo. */}
+    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+    setHistory(nextHistory);
+    setCurrentMove(nextHistory.length - 1);
+    
+    {/* Establecer el siguiente turno. */}
+    setXIsNext(!xIsNext);
+    
+  }
+  
+  {/* Función realizar saltos en la línea de tiempo. */}
+  function jumpTo(nextMove) {
+    setCurrentMove(nextMove);
+    setXIsNext(nextMove % 2 === 0);
+  }
+
+  const moves = history.map((squares, move) => {
+    let description;
+    if (move > 0) {
+      description = 'Go to move #' + move;
+    } else {
+      description = 'Go to game start';
+    }
+    return (
+      <li>
+        <button className="jump-to" onClick={() => jumpTo(move)}>{description}</button>
+      </li>
+    );
+  });
+  
+  return (
+  
+    <>
+      
+      {/* Título */}
+      <h1> ¡Bienvenido/a al juego Tres en línea! </h1>
+      
+      <div className="game">{/* Contenedor principal del juego. */}
+          
+          
+       {/* Contenedor del tablero del juego. */}
+       <div className="game-board">
+           {/* Utilizar el componente tablero con propiedades anexas. */}
+           <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+      </div>
+        <div className="game-info">
+          <ol>{moves}</ol>
+        </div>
+      
+      </div>
+    
+      {/* Pie de página. */}
+
+      <h2> Personalización: <a href="https://www.mazalsoft.xyz/juego-tic-tac-toe" target="_blank">Mauricio Chara Hurtado para Mazalsoft </a> </h2>
+      <br />
+      <h2> Fuente documental: <a href="https://beta.reactjs.org/learn/tutorial-tic-tac-toe" target="_blank">React Docs - BETA </a> </h2>
+
+
+   </>
+  );
+}
+
+/*_______________Fin componente Game(Punto de entrada)_______________*/
 
 
 /**************************************************************
