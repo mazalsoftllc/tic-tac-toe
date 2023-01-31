@@ -213,9 +213,9 @@ export default function Game() {
     
       {/* Pie de página. */}
 
-      <h2> Personalización: <a href="https://www.mazalsoft.xyz/juego-tic-tac-toe" target="_blank">Mauricio Chara Hurtado para Mazalsoft </a> </h2>
+      <h2> Personalización: <a href="https://www.mazalsoft.xyz/juego-tic-tac-toe" >Mauricio Chara Hurtado para Mazalsoft </a> </h2>
       <br />
-      <h2> Fuente documental: <a href="https://beta.reactjs.org/learn/tutorial-tic-tac-toe" target="_blank">React Docs - BETA </a> </h2>
+      <h2> Fuente documental: <a href="https://beta.reactjs.org/learn/tutorial-tic-tac-toe" >React Docs - BETA </a> </h2>
 
 
    </>
